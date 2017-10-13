@@ -83,6 +83,10 @@ export default function(sfValidator, $parse, sfSelect, $interpolate) {
 
           // Angular 1.2 on the other hand lacks $validators and don't add a 'parse' error.
           return undefined;
+        }
+        // When everything passes, lift our own custom blocker from $validators.
+        else if (result.valid && ngModel.$error.schemaForm) {
+          ngModel.$setValidity('schemaForm', true);
         };
 
         return viewValue;
